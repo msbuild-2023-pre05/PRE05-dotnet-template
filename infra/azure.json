@@ -17,27 +17,30 @@
     "region": {
       "type": "string",
       "metadata": {
-        "description": "azure region"
+        "description": "Azure Region"
       }
     }
   },
-  "variables": {},
+  "variables": {
+    "appServicePlanName": "[concat('ghu22-plan-', parameters('environment'), '-', uniqueString(resourceGroup().name))]",
+    "siteName": "[concat(parameters('webAppName'), '-', parameters('environment'))]"
+  },
   "resources": [
     {
-      "name": "[concat('ghu22-', parameters('webAppName'), '-', parameters('environment'))]",
+      "name": "[variables('siteName')]",
       "type": "Microsoft.Web/sites",
       "apiVersion": "2016-08-01",
       "location": "[parameters('region')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', concat('ghu22-plan',parameters('environment'), uniqueString(resourceGroup().name))]"
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
       ],
       "properties": {
-        "name": "[concat('ghu22-', parameters('webAppName'), '-', parameters('environment'))]",
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat('ghu22-plan',parameters('environment'), uniqueString(resourceGroup().name))]"
+        "name": "[variables('siteName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
       }
     },
     {
-      "name": "[concat('ghu22-plan',parameters('environment'), uniqueString(resourceGroup().name)]",
+      "name": "[variables('appServicePlanName')]",
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2018-02-01",
       "location": "[parameters('region')]",
@@ -49,7 +52,7 @@
         "displayName": "demo"
       },
       "properties": {
-        "name": "[concat('ghu22-plan',parameters('environment'), uniqueString(resourceGroup().name)]"
+        "name": "[variables('appServicePlanName')]"
       }
     }
   ],

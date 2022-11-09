@@ -27,6 +27,8 @@ Let's create a Codespace! :rocket:
    3. Again, click on the `...` button next to the Codespace but this time click `Stop codespace`.
    4. Close this tab and back to the original browser tab containing your Codespace and click `Restart codespace`.
    5. Once the codespace is back online, again run the `free -m` command from the terminal window and notice that the memory has increased to 8gb.<br/>
+
+   > **Note** You can also use the Command Palette (`⇧⌘P` on macOS / `Ctrl + Shift + P` on Windows) and type `Codespaces: Change Machine Type` to change the machine type instead of using the UI.
    </details>
 7. You are now ready to go the next exercise!
 
@@ -81,6 +83,11 @@ Let's get your code running and fix a 🐛.
 > - How to run commands and [develop in your Codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/developing-in-a-codespace)
 > - How [forwarding ports](https://docs.github.com/en/codespaces/developing-in-codespaces/forwarding-ports-in-your-codespace) in your Codespace works
 
+> **Did you know?**
+> - By default, the exposed ports are only available to you, but you can make them available to your entire org or the world in general by making it public. See more on [Forwarding ports in your codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/forwarding-ports-in-your-codespace)
+> - You can connect your codespaces to access resources on private networks. See more on [Connecting to a private network](https://docs.github.com/en/codespaces/developing-in-codespaces/connecting-to-a-private-network)
+> - You can preview your application inside codespaces with [Codespaces Simple Browser](https://github.blog/changelog/2022-10-20-introducing-the-codespaces-simple-browser/) without the need to open a new browser tab?
+
 ## Exercise 3 - Add a dev container
 
 One thing that's really great is that the default dev container has `.NET 6`, `node`, `python`, `mvn`, and [more](https://github.com/devcontainers/images/blob/main/src/universal/.devcontainer/Dockerfile).
@@ -118,6 +125,47 @@ Let's create our own dev container!
                 }
             },
         ```
+
+        <details>
+
+        The entire file should look like:
+
+        ```yml
+        {
+            "name": "C# (.NET)",
+            "image": "mcr.microsoft.com/devcontainers/dotnet:0-6.0-bullseye",
+            // Configure tool-specific properties.
+            "customizations": {
+                // Configure properties specific to VS Code.
+                "vscode": {	
+                    // Add the IDs of extensions you want installed when the container is created.
+                    "extensions": [
+                        "ms-dotnettools.csharp"
+                    ]
+                }
+            },
+            "features": {
+                "ghcr.io/devcontainers/features/node:1": {
+                    "version": "lts"
+                },
+                "ghcr.io/devcontainers/features/azure-cli:1": {},
+                "ghcr.io/devcontainers/features/github-cli:1": {}
+            }
+
+            // Use 'forwardPorts' to make a list of ports inside the container available locally.
+            // "forwardPorts": [5000, 5001],
+
+            // Use 'postCreateCommand' to run commands after the container is created.
+            // "postCreateCommand": "dotnet restore",
+
+            // Configure tool-specific properties.
+            // "customizations": {},
+
+            // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+            // "remoteUser": "root"
+        }
+        ```
+        </details>
 
     6. Save the file (`⌘S` on macOS / `Ctrl + S` on Windows).
     </details>
@@ -166,6 +214,7 @@ Let's create our own dev container!
 We are going to debug why our images aren't loading. First, we will find our issue number that relates to our 🐛.
 
 1. Run this again in the terminal window: `gh issue list`
+    > **Note** Instead of using the CLI, you can also click on the `GitHub` octocat pane icon and expand the `My Issues` dropdown to see the issues assigned to you.
 2. We should see a `#2  :bug: Fix book cover images` issue. We can further examine the issue by running `gh issue view 2`
 3. Next, let's run some unit tests to see if this helps us in debugging our issue. In the Terminal prompt, navigate to your unit tests folder.
     <details>
@@ -173,11 +222,12 @@ We are going to debug why our images aren't loading. First, we will find our iss
     - You should be able to enter `cd src/ReadingTime6.Web.Tests.Unit/` and press return.
     - If you are stuck, this command should work also:
 
-      `cd /workspaces/universe2022-dotnet-$GITHUB_USER/src/ReadingTime6.Web.Tests.Unit/`
+      `cd $CODESPACE_VSCODE_FOLDER/src/ReadingTime6.Web.Tests.Unit/`
 
     </details>
 4. Enter `dotnet test` and press return.
 5. Okay, you should see **12** 🧪 pass :white_check_mark: and 1 🧪 failed :x:. Ohh, from the error message, we might have discovered our 🐛.
+    > **Note** A tip is that you can `⌘ + click` on macOS `ctrl+click` on Windows on the `/workspaces/WS-CL100-dotnet-template/src/ReadingTime6.Web.Tests.Unit/BookTests.cs:line 29` in the terminal window to open the file in the editor, along with the line number where the test failed. You can then right click the `Book` on `new Book` and select `Go to Definition` to see the code where this is being defined in `Books.cs:line 25`.
 6. Let's set a breakpoint in the code to see if we can further diagnose the issue.
     <details>
 
@@ -255,6 +305,8 @@ We are going to debug why our images aren't loading. First, we will find our iss
 ## Resources
 
 - [About Codespaces - GitHub Docs](https://docs.github.com/en/codespaces/overview)
+- [Quickstart for GitHub Codespaces](https://docs.github.com/en/codespaces/getting-started/quickstart)
+- [Deep Dive into Codespaces](https://docs.github.com/en/codespaces/getting-started/deep-dive)
 - [Managing encrypted secrets for your codespaces](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)
 - [Codespaces: Configure Dev Container Configuration Features](https://docs.microsoft.com/en-us/visualstudio/online/reference/configuring#configure-dev-container-configuration-features)
 - [Codespaces: Rebuild Container](https://docs.microsoft.com/en-us/visualstudio/online/reference/configuring#rebuild-container)

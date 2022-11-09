@@ -1,7 +1,7 @@
 # Universe 2022 Workshop
 **Build a web app with Codespaces and deploy it to Microsoft Azure with GitHub Actions**
 
-## Lab 4c - Configuring prebuilds
+## Lab 4 - Configuring prebuilds
 
 Prebuilds provide a way for you to preconfigure a codespace configuration so that users gain faster access when provisioning a new codespace environment. This is especially useful for large or complex repositories.  As an example, the largest source code base for github.com takes approximately 29Gb on the filesystem when fully populated including source code, dependencies, etc. Using a prebuilt codespace, a GitHub engineer can spin up a new environment and be working on the code within seconds!!!
 
@@ -23,4 +23,3 @@ The real value of prebuilts is derived from large, complex repos.  So they won't
 ## Resources
 
 - GitHub Docs: [About GitHub Codespaces prebuilds](https://docs.github.com/en/codespaces/prebuilding-your-codespaces/about-github-codespaces-prebuilds)
-
