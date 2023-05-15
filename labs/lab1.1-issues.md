@@ -13,10 +13,9 @@ Let's create some Issues! 📃
 3. Type `Add book ratings` as the title
 4. Type `Add a book rating column to the book list` in the description
 5. Add an image to the description
-    <details>
+    <details markdown=1>
         - To add an image, you can paste from the clipboard, drag an image file into the browser, or click the bar at the bottom of the text area.
         - For this Issue, use the following image:
-        
         ![image of the book list](images/rating-image-small.png)
     </details>
 Add an image into the description. You can paste from the clipboard, drag an image file into the browser, or click the bar at the bottom of the text area.
