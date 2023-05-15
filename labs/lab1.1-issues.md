@@ -72,12 +72,17 @@ Let's create an Issue! 📃
 
 Now you know how to create an Issue, it's time to create a small backlog of work for our team. 👷‍♀️
 
-1. Create another Issue to add 2 more books to the list.
+1. Create another Issue to add 2 more books to the list. Use a table for the details.
     <details>
-    The two books to add are:
 
-    - The DevOps Handbook by Gene Kim, Jez Humble, et. al.
-    - The Phoenix Project by Gene Kim, Kevin Behr, et. al.
+    1. In the description field, type the `/` character to trigger `Slash Commands` and select `Table`.
+    2. Choose `3 columns` and `2 rows`.
+    3. Fill out the below book details in the resulting markdown table.
+
+    | Title | Author | Image |
+    |-----|-----|-----|
+    | The DevOps Handbook | Gene Kim, Jez Humble, et. al. | handbook.jpg |
+    | The Phoenix Project | Gene Kim, Kevin Behr, et. al. | phoenix.jpg |
 
     </details>
 
@@ -100,6 +105,7 @@ Now you know how to create an Issue, it's time to create a small backlog of work
 You're welcome to experiment with adding more issues, adjust titles, populating task lists, converting tasks to issues and anything else you can think of!
 
 > **What have you learned?**
+> - How to use [Slash Commands](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-slash-commands) to speed up writing complex markdown.
 > - How to [Create and manage Labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) for your issues
 
 > **Did you know?**
@@ -233,3 +239,16 @@ Now we have a few Issues, let's start to look at how we can find and filter them
 > **Did you know?**
 >- You can also use shortcut keys in the browser to apply filters. Try hitting the `a` key on the `Issues` page and you should see the Assignee dropdown expand. You can find out all the browser shortcuts by hitting `?`.
 > - The search syntax for issues and pull requests is very powerful. You can find out more [in the GitHub docs](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests).
+
+## Next Steps
+
+- Move on to the next lab! :next_track_button: [Lab 1.2 - Projects](./lab1.2-projects.md)
+
+## Resources
+- [About Issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues)
+- [Using task lists](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists)
+- [Writing on GitHub](https://docs.github.com/en/get-started/writing-on-github)
+- [GitHub Flavored Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/about-writing-and-formatting-on-github)
+- [Slash Commands](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-slash-commands)
+- [Issue Forms syntax](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)
+- [Advanced search syntax](https://docs.github.com/en/search-github/searching-on-github/searching-issues-and-pull-requests)
