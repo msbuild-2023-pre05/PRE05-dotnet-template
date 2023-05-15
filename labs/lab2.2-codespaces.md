@@ -1,4 +1,4 @@
-# Codespaces Lab 2 - Working in Codespaces
+# Lab 2 - Working in Codespaces
 
 Blazing fast cloud developer environments!
 
