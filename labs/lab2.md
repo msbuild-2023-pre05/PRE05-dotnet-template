@@ -193,8 +193,9 @@ Let's create our own dev container!
 
     1. Click on the `Source Control` pane ![image](https://user-images.githubusercontent.com/19912012/200052933-8c2cb0d6-5474-49fd-8f4a-41d9a9509031.png).
     2. Notice the `devcontainer.json` file is in the `Changes` section.
-    3. Add a commit message - something like: `adding dev container - fixes #1`
-    4. A warning may appear - you can click `Always`.
+    3. Stage the changes by clicking the `+` button next to each changed file or the `Changes` heading.
+    4. Add a commit message - something like: `adding dev container - fixes #1`
+    5. Click the `✔️ Commit` button.
     5. Click on the `Sync Changes 1 ^` button to push your change (or run `git push` from the terminal window).
     6. A warning may appear - you can click `OK, Don't Show Again`.
     </details>
@@ -235,7 +236,7 @@ We are going to debug why our images aren't loading. First, we will find our iss
     </details>
 4. Enter `dotnet test` and press return.
 5. Okay, you should see **12** 🧪 pass :white_check_mark: and 1 🧪 failed :x:. Ohh, from the error message, we might have discovered our 🐛.
-    > **Note** A tip is that you can `⌘ + click` on macOS `ctrl+click` on Windows on the `/workspaces/WS-CL100-dotnet-template/src/ReadingTime6.Web.Tests.Unit/BookTests.cs:line 29` in the terminal window to open the file in the editor, along with the line number where the test failed. You can then right click the `Book` on `new Book` and select `Go to Definition` to see the code where this is being defined in `Books.cs:line 25`.
+    > **Note** A tip is that you can `⌘ + click` on macOS `ctrl+click` on Windows on the `/workspaces/your-repository/src/ReadingTime6.Web.Tests.Unit/BookTests.cs:line 29` in the terminal window to open the file in the editor, along with the line number where the test failed. You can then right click the `Book` on `new Book` and select `Go to Definition` to see the code where this is being defined in `Books.cs:line 25`.
 6. Let's set a breakpoint in the code to see if we can further diagnose the issue.
     <details>
 
@@ -307,8 +308,7 @@ We are going to debug why our images aren't loading. First, we will find our iss
 
 ## Next Steps
 
-- Move on to the next lab! :next_track_button: [Lab 2 - Actions](./lab2-actions.md)
-- [Lab 3 - Optional - Prebuilds](./lab3-optional-prebuilds.md)
+- Move on to the next lab! :next_track_button: [Lab 3 - Copilot](./lab3.md)
 
 ## Resources
 
