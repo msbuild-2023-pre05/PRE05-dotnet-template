@@ -1,4 +1,4 @@
-# Lab 1.1 - Planning our Work with Issues
+# Lab 1.1 - Planning your Work with Issues
 
 Whether you're a sales-driven "waterfall" org or an agile team practicing Scrum or Kanban, it's important to effectively plan and track the work your team and organisation perform. You also need effective ways to communicate, both within your team and organisation, but also with your communities.
 
