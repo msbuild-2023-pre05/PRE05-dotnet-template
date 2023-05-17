@@ -389,4 +389,4 @@ The final layout type is the Roadmap view. In this exercise, we'll create a prod
 - Move on to the next lab! :next_track_button: [Lab 2.1 - The Web-Based Editor](./lab2.1-web-editor.md)
 
 ## Resources
-- 
+- [Planning and Tracking with Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects)

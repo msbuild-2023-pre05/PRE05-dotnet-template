@@ -6,7 +6,7 @@
 
 **Plan, build, and deploy a .NET 7 web app with GitHub Issues, GitHub Codespaces, and GitHub Copilot and deploy it to Microsoft Azure with GitHub Actions**
 
-*Have you ever wanted to build and deploy a website to the cloud without needing to install a bunch of tools and SDKs on your computer? If yes, then come to this fast-paced workshop where you'll choose your own adventure and programming language (JavaScript, C#, Java, or Python) and then plan, build and deploy a web app with GitHub Issues, Codespaces, and Copilot to Microsoft Azure using GitHub Actions.*
+In this lab you are going to learn how to plan and track your work with [GitHub Issues and Projects](https://github.com/features/issues), how to start and use [GitHub Codespaces](https://github.com/features/codespaces) to make some changes to an existing app with the help of [GitHub Copilot](https://github.com/features/copilot), and how to use [GitHub Actions](https://github.com/features/actions) to provision resources on the cloud and to build and deploy the web application to Microsoft Azure.
 
 ## Labs and Exercises
 
