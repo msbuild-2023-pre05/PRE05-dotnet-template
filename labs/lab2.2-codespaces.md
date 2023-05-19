@@ -98,9 +98,9 @@ When connecting to your Codespace from a browser you are using a version of Visu
 
 ## Exercise 3 - Add a dev container
 
-One thing that's really great is that the [default dev container](https://github.com/devcontainers/images/blob/main/src/universal/.devcontainer/Dockerfile) has `.NET 7`, `node`, `python`, `mvn`, and more. But what if you need other tools? Or in our case, we want don't want to have each developer install the `C# VS Code Extension` for debugging, we want to have everything pre-configured from the start!
+One thing that's really great is the [default dev container](https://github.com/devcontainers/images/blob/main/src/universal/.devcontainer/Dockerfile) has `.NET 7`, `node`, `python`, `mvn`, and more. But what if you need other tools? Or in our case, we want don't want to have each developer install the `C# VS Code Extension` for debugging, we want to have everything pre-configured from the start!
 
-Let's create our own dev container!
+Let's create our own dev container! The [dev container is configured](https://docs.github.com/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers) by creating the Docker files Codespaces will use to create and configure the container, and providing any customizations in the `devcontainer.json` file. Customizations provided in `devcontainer.json` can include ports to open, commands to run, and extension to install in Visual Studio Code (either running locally on the desktop or in the browser). This configuration becomes part of the repository. All developers who wish to contribute can then create a new instance of the container based on the configuration you provided.
 
 1. First, let's take a look at the list of issues in the repository. Run this in the terminal window: `gh issue list`
 1. We should see a `#1  :computer: Create dev container` issue. We can further examine the issue by running `gh issue view 1`
@@ -112,6 +112,10 @@ Let's create our own dev container!
 1. Type / Select `Azure CLI` and `GitHub CLI` from the additional features to install and click `OK`.
 1. Pick `Keep Defaults`.
 1. **BEFORE rebuilding the container**, let's make one customization to the dev container configuration to add in the `C# extension` and `GitHub Copilot`.
+    <details>
+
+    > **NOTE**: You can find an extensions ID by opening the `Extensions` pane, right-clicking on the extension and selecting `Copy Extension ID`
+    </details>
 1. The `.devcontainer/devcontainer.json` file should have opened. If not, open it from the `Explorer` pane.
 1. Examine the file - note that this is where the image and node version we selected are stored.
 1. Add a new line after `line 6` (`"image": ...`).
@@ -218,7 +222,7 @@ Let's create our own dev container!
 > **Did you know?**
 > 
 > - The GitHub CLI commands know what repository you are in, so you don't have to specify the repository name. 
-> - Also, since you are running in Codespaces, it knows who YOU are. If you create an issue using the GitHub CLI command, it will show up as created by you.
+> - Also, since you are running in Codespaces, it knows who YOU are. If you create an issue using the GitHub CLI command, it will show up as created by you without having to authenticate again.
 
 ## Exercise 4 - Debugging in your Codespace
 
@@ -244,7 +248,7 @@ As we saw before, our images aren't loading. Let's figure out why. We're going t
 1. Let's set a breakpoint in the code to see if we can further diagnose the issue.
     1. In the `Explorer` pane ![Screenshot of explorer pane](https://user-images.githubusercontent.com/19912012/200037653-48e8cb42-7967-488d-831f-1046fd439c76.png), open the `src/ReadingTime6.Web/Controllers/BookController.cs` file.
     1. Place your cursor on `line 18`, which is the line that reads `return View(bookService.Books());`.
-    3. Click the `red circle` icon to the left of the line number (in the "gutter") to add a breakpoint, like so: ![Screenshot of debug break circle](https://user-images.githubusercontent.com/19912012/200049139-d7161356-aa88-486d-b69d-0b1010254293.png)
+    1. Click the `red circle` icon to the left of the line number (in the "gutter") to add a breakpoint, like so: ![Screenshot of debug break circle](https://user-images.githubusercontent.com/19912012/200049139-d7161356-aa88-486d-b69d-0b1010254293.png)
 1. Start debugging!
     1. Click the `Run and Debug` ![Screenshot of icon for Run and Debug pane](https://user-images.githubusercontent.com/19912012/200047101-e4d2e6ef-6a01-4c7a-9a7c-93f814e0a1ef.png) pane
     1. Click the green `play` button ![Screenshot of play button](https://user-images.githubusercontent.com/19912012/200047608-672a2143-39fc-4da5-97c5-bb07555afe97.png) to start debugging.
@@ -289,10 +293,11 @@ As we saw before, our images aren't loading. Let's figure out why. We're going t
     <details>
 
     1. Click on the `Codespaces` button ![image](https://user-images.githubusercontent.com/19912012/200068097-a8bafd12-09aa-4181-82f9-0161aaef3980.png) in the lower left-hand corner
-    2. Click `Stop Current Codespace`
+    1. Click `Stop Current Codespace`
     </details>
 
 > **What have you learned?**
+> 
 > - How to [debug using VS Code](https://code.visualstudio.com/Docs/editor/debugging#_debug-actions) in your Codespace
 
 ## Next Steps
