@@ -1,4 +1,4 @@
-# Lab 2 - Working in GitHub Codespaces
+# Lab 2.2 - Working in GitHub Codespaces
 
 Blazing fast cloud developer environments!
 

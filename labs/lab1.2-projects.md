@@ -275,6 +275,7 @@ In this exercise, we're going to create another view layout called the "Board la
     3. Drag these three issues into `Sprint 1`:
       - `💻 Create dev container`
       - `🐛 Fix book cover images` 
+      - `📝 Change page title`
       - `Add book ratings`
 
     You can choose any custom field with the single dropdown or iteration field type for your columns.
