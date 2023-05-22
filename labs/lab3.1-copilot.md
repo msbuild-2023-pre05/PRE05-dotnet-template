@@ -92,7 +92,7 @@ But it won’t work, just yet! We might even get a few errors because the rating
 
 ```
 
-13. In BookService.cs, we’ll generate the data that it will pull. On line 9, write the following comment:
+13. In src/ReadingTime6.Web/Services/BookService.cs, we’ll generate the data that it will pull. On line 9, write the following comment:
 
 ```csharp
 // Add ratings to each book
@@ -116,7 +116,7 @@ But it won’t work, just yet! We might even get a few errors because the rating
 
 ### Exercise 2 - Add Unit Tests
 
-1. In BookTests.cs, add the following comment:
+1. In src/ReadingTime6.Web.Tests.Unit/BookTests.cs, add the following comment:
 
 ```csharp 
 // Add unit test for rating property
