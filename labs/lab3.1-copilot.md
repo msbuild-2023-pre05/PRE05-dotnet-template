@@ -116,7 +116,7 @@ But it won’t work, just yet! We might even get a few errors because the rating
 
 ### Exercise 2 - Add Unit Tests
 
-1. In src/ReadingTime6.Web.Tests.Unit/BookTests.cs, add the following comment:
+1. In src/ReadingTime6.Web.Tests.Unit/BookTests.cs, add the following comment to line 75:
 
 ```csharp 
 // Add unit test for rating property
