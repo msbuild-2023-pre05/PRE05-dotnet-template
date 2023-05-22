@@ -1,19 +1,21 @@
-# Codespaces Lab 2 - CI/CD with Actions
+# Actions Lab 4.2 - CI/CD with Actions
 
 In this lab, we will be using GitHub Actions to build and deploy our application to Azure.
 
 ## Exercise 1 - Creating your first Actions workflow to build the code
 
-In this first section, you'll create a build using GitHub Actions.
+In this first section, you'll create a workflow that does a build using GitHub Actions.
 
 1. Inside of the repo you have been using for the lab, click on the the `Actions` link in the toolbar.
-2. You’ll see several popular workflow starters for us to start from. Actions is suggesting that we use the `.NET` workflow since we have .NET code.
+2. You’ll see several popular workflow starters for us to start from. Actions should suggest that we use the `.NET` workflow since we have .NET code. Make sure you don't pick the `.NET Desktop` template.
+   
 3. Under the `.NET` starter template, click the `Configure` button.
 4. In the Actions editor, change the default `.yml` filename from `dotnet.yml` to `readingtime6.yml`.
     <details>
 
     > **Note**: The filename is important because it will be used to identify the workflow in the `.github/workflows` folder in your repository. You can call the file whatever you want, but all GitHub Actions workflows must live in the `.github/workflows` directory
     </details>
+
 5. Take a look at your action workflow. You can see by default, the `on:` keyword will run the workflow for any push to `main` and pull request to `main` (lines `6-10`).
     <details>
 
@@ -26,7 +28,7 @@ In this first section, you'll create a build using GitHub Actions.
 6. On `line 4`, change the name to: `name: readingtime6 ci/cd`. This will be the name of the workflow that will show up in the Actions tab.
 7. Now click the `Start commit` button.
 8. Add a useful commit message, such as `initial commit of workflow`.
-9. Click `Commit new file`.
+9.  Click `Commit new file`.
 10. Click the `Actions` link in the toolbar. You *might* need to refresh your browser before you see your first workflow. When you see it, click on the `workflow run name` (your commit message) to inspect the run.
 11. You’ll notice the workflow failed. Click the on the red `build` job name to inspect.
 12. Because there was a failure, the failed step should already be expanded. It is saying that it can't find the solution file during the `dotnet restore` step.
@@ -80,7 +82,7 @@ You'll update your build workflow to make the test results appear a little nicer
 
     > **Note**: It is easier if you place your cursor on a new line without any tabs or spaces and then paste the above code. It will automatically indent it for you.
 
-    > **Note**: This [action](https://github.com/marketplace/actions/testforest-dashboard) is an example of one of over 15,000 open-source action available on the [Actions Marketplace](https://github.com/marketplace?type=actions&query=)! Also see our [docs](https://docs.github.com/en/actions/learn-github-actions/finding-and-customizing-actions) for more information on the marketplace.
+    > **Note**: This [action](https://github.com/marketplace/actions/testforest-dashboard) is an example of one of over 18,000 open-source action available on the [Actions Marketplace](https://github.com/marketplace?type=actions&query=)! Also see our [docs](https://docs.github.com/en/actions/learn-github-actions/finding-and-customizing-actions) for more information on the marketplace.
 4. Add the following after the `test summary` to run the `dotnet publish` command. We need the build output to deploy to Azure. Make sure the lines are aligned at the correct indentation level relative to their parent:
     ```yml
         - name: Publish with dotnet
@@ -140,15 +142,11 @@ Now you will update the workflow to take the output of your build and deploy you
     ```yml
       deploy-staging:
         runs-on: ubuntu-latest
-        permissions:
-          contents: read
-          id-token: write
         needs: build
 
     ```
     > **Note**: It is easier if you place your cursor on a new line without any tabs or spaces and then paste the above code. It will automatically indent it for you.
 
-    > **Note**: The `permissions` block is used for OIDC (aka, password-less deployments to the cloud!)
 3. Next, we want to add an `environment` so that we can later define approvals, as well as more easily see what build is in what environment from the repo home page. 
     ```yml
         environment: 
@@ -156,19 +154,21 @@ Now you will update the workflow to take the output of your build and deploy you
           url: ${{ steps.deploy.outputs.webapp-url }}
 
     ```
-4. Under `needs:`, add in the environment variables we need to deploy our app to Azure:
+4. Under `needs:`, add in the environment variables we need to deploy our app to Azure. **Replace XX in the UserXX-RG value with the number you were given by your instructor.**:
+
     ```yml
         env:
-          AZURE_GROUP_NAME: rg-${{ github.event.repository.name }}-${{ github.event.repository.id }}
-          AZURE_WEBAPP_NAME: ghu22-${{ github.event.repository.id }}
+          AZURE_GROUP_NAME: UserXX-RG
+          AZURE_WEBAPP_NAME: build23-${{ github.event.repository.id }}
           AZURE_LOCATION: westus3
           AZURE_ENVIRONMENT: staging
     
     ```
     > **Note**: The `env` keyword needs to line up with the `runs-on`, `permissions`, `needs`, and `environment`.
 
-5. After the checkout step, add in the action to download the `build` and `infra` artifacts:
+5. After the env section, add in the action to download the `build` and `infra` artifacts:
     ```yml
+        steps:
         - uses: actions/download-artifact@v3
           with:
             name: output
@@ -179,21 +179,18 @@ Now you will update the workflow to take the output of your build and deploy you
             path: ./infra
     ```
     > **Note**: We are downloading the `build` artifacts (remember: build once deploy many!) as well as the `infra` artifacts so that we don't have to use the `actions/checkout` action during deployment.
-6. After the checkout step, add in the action to log into [Azure using OIDC](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-azure) (password-less deploy!):
+
+6. After the download steps, add in the action to log into Azure:
     ```yml
-        - name: Login to Azure with OIDC
-          uses: azure/login@v1
+        - name: Login to Azure
+          uses: azure/login@v1.1
           with:
-            client-id: 'REPLACE-ME'
-            tenant-id: 'REPLACE-ME'
-            subscription-id: 'REPLACE-ME'
+            creds: ${{ secrets.AZURE_CREDS }}
     
     ```
-7. Replace the `REPLACE-ME` values with the following with the values in your `🎉 Data for your labs` issue ([issues](../../../issues/3)).
-    > **Note**: You can get the OIDC login values (it's already-pre formatted so you can copy and paste) from your **[issues](../../../issues/)** in your lab repo. The title of the issue is `Data for your labs`, the issue includes a snippet you can just copy & paste (make sure it's indented though).
-    > 
+
     > You can select the lines you pasted and use `tab` to indent them all together so that they are indented beneath the `with` (see step above for example on indentation if you are unsure).
-8. Next, add following step to provision the infrastructure with ARM:
+7. Next, add following step to provision the infrastructure with ARM:
     ```yml
         - uses: azure/arm-deploy@v1
           with:
@@ -202,7 +199,7 @@ Now you will update the workflow to take the output of your build and deploy you
             parameters: webAppName=${{ env.AZURE_WEBAPP_NAME }} environment=${{ env.AZURE_ENVIRONMENT }} region=${{ env.AZURE_LOCATION }}
     
     ```
-9.  Finally, add in the action to deploy the web app, and a `run` command to write the url to the job summary:
+8.  Finally, add in the action to deploy the web app, and a `run` command to write the url to the job summary:
     ```yml
         - name: 'Azure webapp deploy'
           id: deploy
@@ -218,7 +215,7 @@ Now you will update the workflow to take the output of your build and deploy you
     ```
     > **Note**: We add an `id` to the `Azure webapp deploy` action so that we can use its output variable (`${{ steps.deploy.outputs.webapp-url }}`)
 
-10. We want to `workflow_dispatch`: trigger under the `on:` section at the top of the workflow to ensure that we can [run the workflow manually](https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/) - lines 6-11 should look like this:
+9.  We want to `workflow_dispatch`: trigger under the `on:` section at the top of the workflow to ensure that we can [run the workflow manually](https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/) - lines 6-11 should look like this:
     ```yml
     on:
       push:
@@ -227,7 +224,7 @@ Now you will update the workflow to take the output of your build and deploy you
         branches: [ "main" ]
       workflow_dispatch:
     ```
-11. If we lost you anywhere, you can take a look at the reference workflow (you just have to replace the `REPLACE-ME` under the `azure/login@v1` action):
+10. If we lost you anywhere, you can take a look at the reference workflow (you just have to replace the `XX` under the `azure/login@v1` action):
     <details>
 
     ```yml
@@ -251,7 +248,7 @@ Now you will update the workflow to take the output of your build and deploy you
           - name: Setup .NET
             uses: actions/setup-dotnet@v3
             with:
-              dotnet-version: 6.0.x
+              dotnet-version: 7.0.x
           - name: Restore dependencies
             run: dotnet restore ./src/ReadingTime6.sln
           - name: Build
@@ -285,8 +282,8 @@ Now you will update the workflow to take the output of your build and deploy you
           name: staging
           url: ${{ steps.deploy.outputs.webapp-url }}
         env:
-          AZURE_GROUP_NAME: rg-${{ github.event.repository.name }}-${{ github.event.repository.id }}
-          AZURE_WEBAPP_NAME: ghu22-${{ github.event.repository.id }}
+          AZURE_GROUP_NAME: UserXX-RG
+          AZURE_WEBAPP_NAME: build23-${{ github.event.repository.id }}
           AZURE_LOCATION: westus3
           AZURE_ENVIRONMENT: staging
 
@@ -299,12 +296,10 @@ Now you will update the workflow to take the output of your build and deploy you
           with:
             name: infra
             path: ./infra
-        - name: Login to Azure with OIDC
-          uses: azure/login@v1
+        - name: Login to Azure
+          uses: azure/login@v1.1
           with:
-            client-id: 'REPLACE-ME'
-            tenant-id: 'REPLACE-ME'
-            subscription-id: 'REPLACE-ME'
+            creds: ${{ secrets.AZURE_CREDS }}
 
         - uses: azure/arm-deploy@v1
           with:
@@ -325,62 +320,21 @@ Now you will update the workflow to take the output of your build and deploy you
             echo '## :rocket: Your site is available [here](${{ steps.deploy.outputs.webapp-url }})' >> $GITHUB_STEP_SUMMARY
     ```
     </details>
-12. Now click the `Start commit` button. Add a message like: `Add support for deploying web app to Azure`
-13. Click `Commit changes` to commit to the `main` branch.
-14. Click the `Actions` link on the toolbar.
-15. On the left-hand side, click on the workflow name (ie: `readingtime6 ci/cd`).
-16. Click the most recent job run. You should see a `build` and `deploy-staging` job.
-17. Inspect the logs as the job runs by clicking into a job that's in progress.
-18. Once both jobs complete, Click the `⌂ Summary` link on the left-hand side of the page.
-19. At the bottom of the page under `deploy-staging summary`, click the link to navigate to your website. 
-20. Verify the website is running and is showing our site!
+11. Now click the `Start commit` button. Add a message like: `Add support for deploying web app to Azure`
+12. Click `Commit changes` to commit to the `main` branch.
+13. Click the `Actions` link on the toolbar.
+14. On the left-hand side, click on the workflow name (ie: `readingtime6 ci/cd`).
+15. Click the most recent job run. You should see a `build` and `deploy-staging` job.
+16. Inspect the logs as the job runs by clicking into a job that's in progress.
+17. Once both jobs complete, Click the `⌂ Summary` link on the left-hand side of the page.
+18. At the bottom of the page under `deploy-staging summary`, click the link to navigate to your website. 
+19. Verify the website is running and is showing our site!
 
 Huzzah! :sparkles: Access the site and admire your work! :octocat:
 
 > **What have you learned?**
 > - Deploying a [web app to Azure](https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-azure/deploying-net-to-azure-app-service) using GitHub Actions
 
-## Exercise 5: Azure CLI in Codespace
-
-1. Navigate back to your Codespace and re-open it.
-2. Run the following command to login to Azure (this command works because of the [Codespace secrets](../../../settings/secrets/codespaces) added to the repository):
-    ```bash
-    az login --service-principal -u $AZURE_CLIENT_ID --tenant $AZURE_TENANT_ID -p $AZURE_CLIENT_SECRET
-    ```
-  > **Note**: We could have also added this as a `postCreateCommand` to the `.devcontainer/devcontainer.json` file, but in lieu of that, we can just run it manually. If you are interested in adding it to the `postCreateCommand` so that every developer that loads the Codespace can access Azure resources, see the sample below `devcontainer.json`.
-  >
-  > <details>
-  >
-  > 1. Open the `.devcontainer/devcontainer.json` file.
-  > 2. Under the `customizations` block, add the following `postCreateCommand` to log into Azure automatically using our Codespaces secrets defined on our repository:
-  >   ```yml
-  >    // Run this command after the Codespace is built
-  >     "postCreateCommand": " az login --service-principal -u $AZURE_CLIENT_ID --tenant $AZURE_TENANT_ID -p $AZURE_CLIENT_SECRET",
-  >   ```
-  > 3. Save the file (`⌘S` on macOS / `Ctrl + S` on Windows).
-  > 4. Rebuild the container - don't worry any file edits will persist. The only thing that is being updated is the container the environment is running in.
-  > 5. You might see a notification pop up - click `Rebuild Now` . Confirm that you want to rebuild the container. Or, open the command palette (`⇧⌘P` on macOS, `ctrl+shift+p` on Windows), type `rebuild` and select `Codespaces: Rebuild Container`. Confirm that you want to rebuild your container.
-  > 6. Wait for the container to rebuild. This will take a few minutes. 
-  > </details>
-
-3. Run an `az` command in the terminal to show what subscription you are authenticated to:
-  ```bash
-  az account show
-  ```
-4. Run an `az` command in the terminal to show the resources that are deployed to your subscription:
-  ```bash
-  az resource list --query "[].{Name:name, Type:type}"
-  ```
-5. You should see the Azure resources you deployed in Exercise 4 - congratulations! :tada:
-
-> **What have you learned?**
-> - [Codespaces secrets](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-encrypted-secrets-for-your-codespaces)
-> - How to add a `postCreateCommand` to the `.devcontainer/devcontainer.json` file to automatically log into Azure when the Codespace is created ([docs](https://code.visualstudio.com/docs/devcontainers/create-dev-container#_rebuild))
-> - Running [az cli](https://learn.microsoft.com/en-us/cli/azure/resource?view=azure-cli-latest#az-resource-list) commands in a Codespace
-
-## Next Steps
-
-- [Lab 3 - Optional - Reusable Workflows](./lab3-optional-reusable-workflows.md)
 
 ## Resources
 
