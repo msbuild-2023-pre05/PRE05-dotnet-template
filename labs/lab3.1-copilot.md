@@ -15,141 +15,69 @@ Fun fact: GitHub Copilot can provide suggestions for numerous languages and a wi
 Let’s try to prompt GitHub Copilot to suggest some code for us! 
 
 ### Installation 
-1. In our last lab while setting up our dev container, we enabled the GitHub Copilot extension to be automagically installed. Let’s double check by searching for GitHub Copilot in our extension list. 
-2. Create a new directory at the root of the project called BinarySearchAlgorith.cs. (This won’t be related to our .NET project. We’re just going to use this to get familiar with GitHub Copilot).
-3. Write a comment that says `# Write a program that executes a binary search algorithm`. If we press tab, we’ll see that our results may vary. It may not even generate the right algorithm. However, if we get more specific, we can better ensure that GitHub Copilot provides us with the correct results. 
-4. Let’s write a more specific, guided comment for GitHub Copilot. This one should do the trick
-```
-/* Write a function that performs a binary search algorithm in C#
-1. Create an array of integers 1, 2, 3, 4, 5
-2. The target number should be 4
-3. The algorithm should return the index of the target number
-*/
-```
-Here we are providing GitHub Copilot with more examples so it can produce more refined results. 
-5. Below write a specific comment prompting it to define the function like this:
-```
-Define function
-```
+In our last lab while setting up our dev container, we enabled the GitHub Copilot extension to be automagically installed. Let’s double check by searching for GitHub Copilot in our extension list. If not, we can install GitHub Copilot.
 
-Now, if we press tab and accept the incoming suggestions from GitHub Copilot, it should generate the desired function.
-Your final results should look something like
-```csharp
-/* Write a function that performs a binary search algorithm in C#
-1. Create an array of integers 1, 2, 3, 4, 5
-2. The target number should be 4
-3. The algorithm should return the index of the target number
-*/
- 
-dotnet tool install -g dotnet-script
-
-dotnet script Demo.cs
-
-/* Write a function that performs a binary search algorithm in C#
-1. Create an array of integers 1, 2, 3, 4, 5
-2. The target number should be 4
-3. The algorithm should return the index of the target number
-*/
- 
-// define function
-int binarySearch(int[] arr, int l, int r, int x)
-{
-    if (r >= l)
-    {
-        int mid = l + (r - l) / 2;
- 
-        // If the element is present at the middle itself
-        if (arr[mid] == x)
-            return mid;
- 
-        // If element is smaller than mid, then it can only
-        // be present in left subarray
-        if (arr[mid] > x)
-            return binarySearch(arr, l, mid - 1, x);
- 
-        // Else the element can only be present in right
-        // subarray
-        return binarySearch(arr, mid + 1, r, x);
-    }
- 
-    // We reach here when element is not present in array
-    return -1;
-}
-
-// call function
-int[] arr = { 1, 2, 3, 4, 5 };
-int n = arr.Length;
-int x = 4;
-
-int result = binarySearch(arr, 0, n - 1, x);
-
-if (result == -1)
-    Console.WriteLine("Element not present");
-else
-    Console.WriteLine("Element found at index "
-                      + result);
-```
-6. Let’s prompt it to call the function with a comment that says:
-```
-Call function
-``
-7. We can run the code to see that it works by running the following commands in our terminal
-```
-dotnet tool install -g dotnet-script
-
-```
-This will give us the ability to run this single file
-```
-dotnet script BinarySearchAlgorith.cs
-```
-To actually run the file. 
-
-### What we learned
-We just learned how to convert comments to code and how to create better comments that will help us generate our desired results. Now, let’s add code to our actual project
-
-## Exercise 2 - Using the codebase’s existing context
+## Exercise 1 - Using the codebase’s existing context
 
 We’re going to add a new column for ratings in our web application 
-1. cd into the current folder src/ReadingTime6.Web/Views/Book
-2. Inside that directory, open the file /Index.cshtml.
-3. In that file on line 27, we’ll write a comment that says, 
+
+*Let's load the web app in our browser and click the View Inventory button. We will see that it renders the title, author, and cover*
+1. Create a new branch by running the command:
+
+```bash
+ git checkout -b "learning-copilot"
+```
+
+2. cd into the current folder `src/ReadingTime6.Web/Views/Book`.
+3. Inside that directory, open the file `Index.cshtml`.
+4. In that file on line 27, we’ll write the following comment: 
+
 ```csharp
 // add a heading for ratings
 ```
-4. Press tab, and GitHub Copilot will generate the following lines:
-```
+
+5. Press `ENTER` then `TAB` to accept GitHub Copilot's suggestions:
+
+```csharp
             <th>
                 @Html.DisplayNameFor(model => model.Ratings)
-
 ```
-5. On line 47, we’ll write a comment that says, 
+
+6. On line 47, we’ll write the following comment: 
+
 ```csharp
 // add a column for ratings
 ```
-6. Press tab, and GitHub Copilot will generate the following lines:
-```
+
+7. Press `ENTER` then `TAB` to accept GitHub Copilot's suggestions:
+
+```csharp
          <td>
-                    @Html.DisplayFor(modelItem => item.Ratings)
-                </td>
+            @Html.DisplayFor(modelItem => item.Ratings)
+        </td>
 
 ```
 But it won’t work, just yet! We might even get a few errors because the rating variable isn’t defined in other parts of the project.
-7. Let’s define it in our Book model. We can find that in this file `src/ReadingTime6.Web/Models/Book.cs`
-8. On line 14 of Book.cs, we’ll write a comment that says
+8. Let’s define it in our Book model. We can find that in this file `src/ReadingTime6.Web/Models/Book.cs`
+9. On line 14 of Book.cs, we’ll write a comment that says
 ```
 Add a property for ratings
 ```
-9. Press `Enter` and then `Tab` to accept GitHub Copilot’s suggestion
-```
+10. Press `ENTER` and then `TAB` to accept GitHub Copilot’s suggestion
+
+```csharp
    public int Ratings { get; set; }
 ```
-10. On line 34 of Book.cs, we’ll write a comment that says, 
-```
+
+11. On line 34 of Book.cs, we’ll write the following comment:
+
+```csharp
 // add a constructor that takes a title, author, cover, and ratings
 ```
-11. Press `Enter` and then `Tab` to accept GitHub Copilot’s suggestion
 
-```
+12. Press `ENTER` and then `TAB` to accept GitHub Copilot’s suggestion
+
+```csharp
         public Book(string title, string author, string cover, int ratings)
         {
             Title = title;
@@ -159,12 +87,16 @@ Add a property for ratings
         }
 
 ```
-12. In BookService.cs, we’ll generate the data that it will pull. On line 9, write a comment taht says
+
+13. In BookService.cs, we’ll generate the data that it will pull. On line 9, write the following comment:
+
+```csharp
+// Add ratings to each book
 ```
-Add ratings to each book
-```
-13. Now to each book instance, add a comma, press space and accept GitHub Copilot’s suggestions. It should suggest a random integer for each rating and generate similar results
-```
+
+14. Now to each book instance, add a comma, press space and accept GitHub Copilot’s suggestions. It should suggest a random integer for each rating and generate similar results
+
+```csharp
 {
             new Book("Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations", "Nicole Forsgren, PhD", "forsgren.jpg", 5),
             new Book("Scrum: The Art of Doing Twice the Work in Half the Time", "Jeff Sutherland", "scrum.jpg", 4),
@@ -175,14 +107,17 @@ Add ratings to each book
         };
 
 ```
-14. Now, we can rerun the project and see the results in our browser!
 
-### Exercise 3 - Add Unit Tests
-1. 
-1. In BookTests.cs, add a comment that says, 
-``` 
-Add unit test for rating property
+15. Now, we can rerun the project and see the results in our browser!
+
+### Exercise 2 - Add Unit Tests
+
+1. In BookTests.cs, add the following comment:
+
+```csharp 
+// Add unit test for rating property
 ```
+
 2. Press `Enter` then `Tab` until it generates the following
 ```csharp
  [Theory]
