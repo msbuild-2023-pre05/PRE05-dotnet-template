@@ -58,11 +58,15 @@ We’re going to add a new column for ratings in our web application
 
 ```
 But it won’t work, just yet! We might even get a few errors because the rating variable isn’t defined in other parts of the project.
+
 8. Let’s define it in our Book model. We can find that in this file `src/ReadingTime6.Web/Models/Book.cs`
-9. On line 14 of Book.cs, we’ll write a comment that says
+
+
+9. On line 14 of Book.cs, we’ll write the following comment:
 ```
 // Add a property for ratings
 ```
+
 10. Press `ENTER` and then `TAB` to accept GitHub Copilot’s suggestion
 
 ```csharp
