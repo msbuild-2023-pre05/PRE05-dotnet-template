@@ -61,7 +61,7 @@ But it won’t work, just yet! We might even get a few errors because the rating
 8. Let’s define it in our Book model. We can find that in this file `src/ReadingTime6.Web/Models/Book.cs`
 9. On line 14 of Book.cs, we’ll write a comment that says
 ```
-Add a property for ratings
+// Add a property for ratings
 ```
 10. Press `ENTER` and then `TAB` to accept GitHub Copilot’s suggestion
 
