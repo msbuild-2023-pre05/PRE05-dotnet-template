@@ -14,6 +14,8 @@ Fun fact: GitHub Copilot can provide suggestions for numerous languages and a wi
 
 Let’s try to prompt GitHub Copilot to suggest some code for us! 
 
+**Pro tip: Install the Code Tour VS Code extension to help guide us.**
+
 ### Installation 
 In our last lab while setting up our dev container, we enabled the GitHub Copilot extension to be automagically installed. Let’s double check by searching for GitHub Copilot in our extension list. If not, we can install GitHub Copilot.
 
