@@ -22,7 +22,7 @@
     }
   },
   "variables": {
-    "appServicePlanName": "[concat('ghu22-plan-', parameters('environment'), '-', uniqueString(resourceGroup().name))]",
+    "appServicePlanName": "[concat('build23-plan-', parameters('environment'), '-', uniqueString(resourceGroup().name))]",
     "siteName": "[concat(parameters('webAppName'), '-', parameters('environment'))]"
   },
   "resources": [
@@ -45,11 +45,11 @@
       "apiVersion": "2018-02-01",
       "location": "[parameters('region')]",
       "sku": {
-        "name": "B1",
+        "name": "S1",
         "capacity": 1
       },
       "tags": {
-        "displayName": "demo"
+        "displayName": "labs"
       },
       "properties": {
         "name": "[variables('appServicePlanName')]"
