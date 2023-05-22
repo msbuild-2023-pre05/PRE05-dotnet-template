@@ -36,7 +36,7 @@ We’re going to add a new column for ratings in our web application
 // add a heading for ratings
 ```
 
-5. Press `ENTER` then `TAB` to accept GitHub Copilot's suggestions:
+5. Press `ENTER` or `RETURN` then `TAB` to accept GitHub Copilot's suggestions:
 
 ```csharp
             <th>
@@ -49,7 +49,7 @@ We’re going to add a new column for ratings in our web application
 // add a column for ratings
 ```
 
-7. Press `ENTER` then `TAB` to accept GitHub Copilot's suggestions:
+7. Press `ENTER` or `RETURN` then `TAB` to accept GitHub Copilot's suggestions:
 
 ```csharp
          <td>
@@ -67,7 +67,7 @@ But it won’t work, just yet! We might even get a few errors because the rating
 // Add a property for ratings
 ```
 
-10. Press `ENTER` and then `TAB` to accept GitHub Copilot’s suggestion
+10. Press `ENTER` or `RETURN`and then `TAB` to accept GitHub Copilot’s suggestion
 
 ```csharp
    public int Ratings { get; set; }
@@ -79,7 +79,7 @@ But it won’t work, just yet! We might even get a few errors because the rating
 // add a constructor that takes a title, author, cover, and ratings
 ```
 
-12. Press `ENTER` and then `TAB` to accept GitHub Copilot’s suggestion
+12. Press `ENTER` or `RETURN` and then `TAB` to accept GitHub Copilot’s suggestion
 
 ```csharp
         public Book(string title, string author, string cover, int ratings)
@@ -112,7 +112,15 @@ But it won’t work, just yet! We might even get a few errors because the rating
 
 ```
 
-15. Now, we can rerun the project and see the results in our browser!
+15. Navigate to the `src/ReadingTime6.Web` directory
+16. Run the following command to compile our project:
+```bash
+dotnet build
+```
+17. Run the following command to launch our project:
+```bash
+dotnet run
+```
 
 ### Exercise 2 - Add Unit Tests
 
@@ -122,7 +130,8 @@ But it won’t work, just yet! We might even get a few errors because the rating
 // Add unit test for rating property
 ```
 
-2. Press `Enter` then `Tab` until it generates the following
+2. Press `ENTER` or `RETURN` then `TAB` until it generates the following
+
 ```csharp
  [Theory]
         [InlineData(1)]
@@ -141,6 +150,13 @@ But it won’t work, just yet! We might even get a few errors because the rating
 
         }
 
+```
+
+3. Let's navigate to the `src/ReadingTime6.Web.Tests.Unit` folder 
+
+4. Run the command 
+```bash
+dotnet test
 ```
 
 
