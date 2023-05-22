@@ -61,8 +61,20 @@
       "description": "Now for each book instance, add a comma, press space and accept GitHub Copilot’s suggestions. It should suggest a random integer for each rating and generate similar results \n\n ```csharp\n{\n            new Book(\"Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations\", \"Nicole Forsgren, PhD\", \"forsgren.jpg\", 5),\n            new Book(\"Scrum: The Art of Doing Twice the Work in Half the Time\", \"Jeff Sutherland\", \"scrum.jpg\", 4),\n            new Book(\"The Lean Startup: How Constant Innovation Creates Radically Successful Businesses\",\"Eric Ries\", \"lean.jpg\", 4),\n            new Book(\"Crossing the Chasm\", \"Geoffrey A. Moore\", \"chasm.jpg\", 3),\n            new Book(\"The Pragmatic Programmer: From Journeyman to Master\", \"David Thomas\", \"pragmatic.jpg\", 5),\n            new Book(\"Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability\",\" Steve Krug\", \"think.jpg\", 4),\n};\n\n ```"
     },
     {
+      "title": "Change directories",
+      "description": "Navigate to the `src/ReadingTime6.Web` directory"
+    },
+    {
+      "title": "Compile the project",
+      "description": "Run the command \n>> dotnet build"
+    },
+    {
+      "title": "Run the project",
+      "description": "Run the command \n>> dotnet brunuild"
+    },
+    {
       "title": "Try it out!",
-      "description": "Let's run the code to see if it works."
+      "description": "Click the View Inventory button to see if it works!"
     }
   ],
   "ref": "main"
